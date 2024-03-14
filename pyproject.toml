@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "isa"
+version = "0.0.1"
+dependencies = []
+requires-python = ">=3.8"
+authors = [
+  {name = "Samuele Sfriso", email = "samuele.sfriso@edu.unife.it"}
+]
+maintainers = [
+  {name = "Samuele Sfriso", email = "samuele.sfriso@edu.unife.it"}
+]
+description = "Computes error metrics on the command line"
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["metrics"]
+
+[project.scripts]
+isa = "isa:main"
