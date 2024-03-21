@@ -88,7 +88,7 @@ def main():
     #print(arguments.metrics)
     solver=Operation(arguments.predicted, arguments.expected, arguments.metrics)
     result=solver.compute_metrics()
-    print(result)
+    print(f"Result: {result}")
     
 if __name__=="__main__": #quando lancio da linea di comando cerca se name è uguali a main ed eseguo il modulo il cui nome è main
     main()
