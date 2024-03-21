@@ -21,7 +21,7 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
             sys.exit()   
     def _is_consistent(self)-> bool:
         """
-        check the consistence of the two list:
+        check the consistence of the passed list:
         they must have the same length.
         """
         return len(self.predicted)==len(self.expected)   
