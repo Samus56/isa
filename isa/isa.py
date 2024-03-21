@@ -82,9 +82,7 @@ def main():
     arguments= parser.parse_args()
     logging.debug(arguments.predicted)#alla stampa di predicted vai associare il livello di debug
     logging.debug(arguments.expected)
-    #print(arguments.expected)
     logging.debug(arguments.metrics)
-    #print(arguments.metrics)
     solver=Operation(arguments.predicted, arguments.expected, arguments.metrics)
     result=solver.compute_metrics()
     print(f"Result: {result}")
