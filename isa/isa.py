@@ -88,6 +88,5 @@ def main():
     print(f"Result: {result}")
     
 if __name__=="__main__": #quando lancio da linea di comando cerca se name è uguali a main ed eseguo il modulo il cui nome è main
-    main()
-    
+    main()   
 #...quando scriviamo un file in python attenzione che vengono eseguiti moduli al di fuori del modulo main
