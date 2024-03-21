@@ -52,7 +52,7 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
 
 def main():
     """
-    Compute the mean absolute error
+    Compute the mean absolute error in the main function.
     """
     #1.interpretazione argomenti da linea di comando
     parser = argparse.ArgumentParser(
