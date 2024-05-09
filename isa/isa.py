@@ -18,7 +18,9 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
         if not self._is_consistent():
             #print("Predicted and Expected must have the same length")
             #logging.critical("Predicted and Expected must have the same length")
-            raise ValueError("Predicted and Expected must have the same length")      def _is_consistent(self)-> bool:
+            raise ValueError("Predicted and Expected must have the same length")      
+            
+    def _is_consistent(self)-> bool:
         """
         check the consistence of the input list:
         they must have the same length.
@@ -29,8 +31,9 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
         Compute the mean absolute error
         """
         result: float = 0
-        for i in range(0,len(self.predicted)):
-            result += abs(self.predicted[i] - self.expected[i])
+
+        for p, e in zip(self.predicted,self.expected):
+            result += abs(p- e)
         return result/len(self.predicted)  
     def _mse(self)->float:
         """
@@ -56,6 +59,7 @@ def main():
     Compute the mean absolute error in the main function.
     """
     #1.interpretazione argomenti da linea di comando
+    
     parser = argparse.ArgumentParser(
         prog="isa",
         description="Computes error metrics"
@@ -78,12 +82,14 @@ def main():
         help="Metrics to compute",
         choices=["MAE","MSE"]
         )
-    logging.basicConfig(level=logging.DEBUG)
     
+
+    logging.basicConfig(level=logging.WARNING)
     arguments= parser.parse_args()
     logging.debug(arguments.predicted)#alla stampa di predicted vai associare il livello di debug
     logging.debug(arguments.expected)
     logging.debug(arguments.metrics)
+
     solver=Operation(arguments.predicted, arguments.expected, arguments.metrics)
     result=solver.compute_metrics()
     print(f"Result: {result}")
