@@ -36,8 +36,10 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
         """
         Compute the mean square error
         """
-        #TODO
-        return -1       
+        result: float = 0
+        for i in range(0,len(self.predicted)):
+            result += abs(self.predicted[i]-self.expected[i]) ** 2
+        return result/len(self.predicted)      
     def compute_metrics(self)-> float:
         """
         Compute metrics
