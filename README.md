@@ -1,14 +1,32 @@
 # ISA v01
 
-isa è un'applicazione da linea di comando che, date due liste di numeri calcola alcune metriche di errore:
+`isa` è un'applicazione da linea di comando che, date due liste di numeri calcola metriche di errore:
 - MAE (mean absolute error)
 - MSE (mean squared error)
+- RMSE (root mean squared error)
 
-Esempio:
-predicted=[1,2,3]
-expected=[1,2,4]
+## Installazione
+```
+python3 -m pip install .
 
-MAE=1/len(predicted)*somma(|predicted[i]-expected[i]|)
-(|1-1| + |2-2| + |3-4|)/3
+```
+## Utilizzo 
+```
+usage: isa [-h] --predicted PREDICTED [PREDICTED ...] --expected EXPECTED [EXPECTED ...] --metrics {MAE,MSE}
 
-*$isa --predicted 123 --expected 124 --metrics MAE*
+Computes error metrics
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --predicted PREDICTED [PREDICTED ...]
+                        Predicted values
+  --expected EXPECTED [EXPECTED ...]
+                        expected values
+  --metrics {MAE,MSE}   Metrics to compute
+  
+```
+## Esempio:
+```
+$isa --predicted 1 2 3 --expected 1 2 4 --metrics MAE
+0.3333333333333333
+```
