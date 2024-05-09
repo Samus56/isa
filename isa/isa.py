@@ -17,9 +17,8 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
         
         if not self._is_consistent():
             #print("Predicted and Expected must have the same length")
-            logging.critical("Predicted and Expected must have the same length")
-            sys.exit()   
-    def _is_consistent(self)-> bool:
+            #logging.critical("Predicted and Expected must have the same length")
+            raise ValueError("Predicted and Expected must have the same length")      def _is_consistent(self)-> bool:
         """
         check the consistence of the input list:
         they must have the same length.
