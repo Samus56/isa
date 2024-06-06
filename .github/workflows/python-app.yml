@@ -30,7 +30,7 @@ jobs:
         python -m pip install pylint pylint pytest hypothesis
         pip install .
 
-    - name: Lint with flake8
+    - name: Lint with pylint
       run: 
           pylint isa/isa.py
     - name: Test with pytest
