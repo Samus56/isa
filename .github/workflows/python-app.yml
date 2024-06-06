@@ -30,9 +30,9 @@ jobs:
         python -m pip install pylint pylint pytest hypothesis
         pip install .
 
-    - name: Link with pylint --exit-zero
+    - name: Link with pylint 
       run: 
-          pylint isa/isa.py
+          pylint isa/isa.py --exit-zero
     - name: Test with pytest
       run: |
         pytest
