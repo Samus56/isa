@@ -47,7 +47,7 @@ jobs:
 
     - name: Docker build e push
       uses: docker/build-push-action@v5
-        with:
-          file: ./Dockerfile
-          push: true
-          tags: samuele229/isa:latest
+      with:
+        file: ./Dockerfile
+        push: true
+        tags: samuele229/isa:latest
