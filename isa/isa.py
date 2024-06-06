@@ -1,6 +1,7 @@
 import argparse #modulo per fare il parsing degli argomenti da linea di comando
 import sys
-import logging 
+import logging
+import math 
 
 class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e i metodi vengono dichiarati con lo snake_case
     """
@@ -32,8 +33,11 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
         """
         result: float = 0
 
-        for p, e in zip(self.predicted,self.expected):
-            result += abs(p- e)
+        fn=lambda p,e : abs(p - e)
+        sum(list(map(fn,self.predicted, self.expected)))
+
+        #for p, e in zip(self.predicted,self.expected):
+         #   result += abs(p- e)
         return result/len(self.predicted)  
     def _mse(self)->float:
         """
@@ -42,7 +46,14 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
         result: float = 0
         for i in range(0,len(self.predicted)):
             result += abs(self.predicted[i]-self.expected[i]) ** 2
-        return result/len(self.predicted)      
+        return result/len(self.predicted) 
+
+    def _rmse(self) ->float:
+        """
+        Compute root mean square error
+        """ 
+        return math.sqrt(self._mse())
+       
     def compute_metrics(self)-> float:
         """
         Compute metrics
@@ -51,15 +62,37 @@ class Operation():#per convenzione i nomi delle classi iniziano con maiuscolo e 
             return self._mae()
         if self.metrics =="MSE":
             return self._mse()
+        if self.metrics =="RMSE":
+            return self._rmse()
         else:
-            return -1   
+            return -1
 
-def main():
+def setup_parser()-> argparse.Namespace:
     """
-    Compute the mean absolute error in the main function.
-    """
-    #1.interpretazione argomenti da linea di comando
-    
+    Parses the argument
+    """ 
+    parser = argparse.ArgumentParser(
+        prog="isa",
+        description="Computes error metrics"
+    )
+    parser.add_argument("--predicted", 
+        type=float,
+        nargs='+',
+        required=True,
+        help="Predicted values"
+    )
+    parser.add_argument("--expected", 
+        type=float,
+        nargs='+',
+        required=True,
+        help="expected values"
+    )
+    parser.add_argument("--metrics",
+        type=str,
+        required=True,
+        help="Metrics to compute",
+        choices=["MAE","MSE","RMSE"]
+        ) 
     parser = argparse.ArgumentParser(
         prog="isa",
         description="Computes error metrics"
@@ -81,19 +114,26 @@ def main():
         required=True,
         help="Metrics to compute",
         choices=["MAE","MSE"]
-        )
-    
+    )
 
+    return parser.parse_args()  
+
+def main(arguments)->float:
+    """
+    Compute the mean absolute error in the main function.
+    """
+    #1.interpretazione argomenti da linea di comando
+    
     logging.basicConfig(level=logging.WARNING)
-    arguments= parser.parse_args()
     logging.debug(arguments.predicted)#alla stampa di predicted vai associare il livello di debug
     logging.debug(arguments.expected)
     logging.debug(arguments.metrics)
 
     solver=Operation(arguments.predicted, arguments.expected, arguments.metrics)
-    result=solver.compute_metrics()
-    print(f"Result: {result}")
+    return solver.compute_metrics()
     
 if __name__=="__main__": #quando lancio da linea di comando cerca se name è uguali a main ed eseguo il modulo il cui nome è main
-    main()   
+    result=main(setup_parser) 
+    print(f"Result: {result}")
+  
 #...quando scriviamo un file in python attenzione che vengono eseguiti moduli al di fuori del modulo main
