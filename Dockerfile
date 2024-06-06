@@ -1,17 +1,9 @@
-#stage 1
-FROM gcc AS compile_stage
+FROM python
 
-WORKDIR home/my_c_app
+WORKDIR home/isa
 
-COPY main.c .
+COPY dist/isa-0.0.1-py3-none-any.whl .
 
-RUN ["gcc","main.c","-o","compiled"]
+RUN ["python", "-m", "pip", "install", "dist/isa-0.0.1-py3-none-any.whl"]
 
-#stage 2
-FROM ubuntu
-
-WORKDIR home/my_c_app
-
-COPY --from=compile_stage home/my_c_app/compiled .
-
-ENTRYPOINT ["./compiled"]
+ENTRYPOINT ["isa"]
